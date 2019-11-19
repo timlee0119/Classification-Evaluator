@@ -28,23 +28,25 @@ app.use(fileUpload());
 // app.use('/users', usersRouter);
 
 app.post('/upload/imagenet', (req, res) => {
-  try {
-    const result = req.files.imagenet.data.toString();
-    const resultpath = 'tmp/imagenet_result.json';
-    fs.writeFile(resultpath, result, (err) => {
-      if (err) {
-        return console.error(err);
-      }
-      console.log(`Imagenet result is stored in ${resultpath}`);
-
-      const eval = execSync(`python ./eval.py -p ${resultpath}`, { cwd: './eval' });
-      print(eval);
-      res.status(200).send();
-    });
-  } catch (err) {
+  if (!req.files) {
+    res.status(400).send();
+  }
+  const result = req.files.imagenet.data.toString();
+  const resultpath = 'tmp/imagenet_result.json';
+  fs.promises.mkdir('tmp', {recursive:true})
+  .then(res => {
+    fs.promises.writeFile(resultpath, result);
+  })
+  .then(res => {
+    console.log(`Imagenet result is stored in ${resultpath}`);
+    const eval = execSync(`python ./eval.py -p ../${resultpath}`, { cwd: './eval' });
+    print(eval);
+    res.status(200).send();
+  })
+  .catch(err => {
     console.error(err);
     res.status(500).send();
-  }
+  });
 });
 
 app.post('/upload/coco', (req, res) => {
