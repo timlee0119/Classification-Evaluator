@@ -9,20 +9,32 @@
     <title>Evaluation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet"  href="stylesheets/grid.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
   </head>
   <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <form encType="multipart/form-data" class="" action="/upload/imagenet" method="post">
-      <input type="file" name="imagenet"><br>
-      <input type="submit" name="" value="Upload Imagenet Classification Result">
-    </form>
-    <form encType="multipart/form-data" class="" action="/upload/coco" method="post">
-      <input type="file" name="coco"><br>
-      <input type="submit" name="" value="Upload COCO Object Detection Result">
-    </form>
-    <script src="" async defer></script>
+    <div class="container-fluid h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-3">
+          <form encType="multipart/form-data" method="post" id="imagenet-form">       
+            <input type="file" name="imagenet" id="imagenet-file"><br>   
+            <input type="button" id="imagenet-btn" value="Upload Imagenet Classification Result">
+          </form>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+          <form encType="multipart/form-data" class="" id="coco-form">
+            <input type="file" name="coco" id="coco-file"><br>
+            <input type="submit" name="" value="Upload COCO Object Detection Result">
+          </form>        
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="js/index.js"></script>
   </body>
 </html>

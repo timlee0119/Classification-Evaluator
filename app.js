@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fileUpload = require('express-fileupload');
 var { execSync } = require('child_process');
+var multer = require('multer');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -22,35 +23,58 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(fileUpload());
+// app.use(fileUpload());
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+var storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.originalname);
+  }
+});
 
-app.post('/upload/imagenet', (req, res) => {
+var upload = multer({ storage : storage });
+
+app.post('/upload/imagenet', upload.single('file'), (req, res, next) => {
+  console.log('fuckyou')
+  // if (!req.files) {
+  //   res.status(400).send();
+  // }
+
+  res.json({ ok: true });
+  // const result = req.files.imagenet.data.toString();
+  // const resultpath = '/tmp/imagenet_result.json';
+  // fs.promises.writeFile(resultpath, result)
+  // .then(_ => {
+  //   console.log(`Imagenet result is stored in ${resultpath}`);
+  //   const eval = execSync(`python3 ../setup.py && python3 ./eval.py -p ${resultpath}`, { cwd: './eval/imagenet' }).toString();
+  //   console.log(eval);
+  //   res.status(200).send(eval);
+  // })
+  // .catch(err => {
+  //   console.error(err);
+  //   res.status(500).send();
+  // });
+});
+
+app.post('/upload/coco', (req, res) => {
   if (!req.files) {
     res.status(400).send();
   }
-  const result = req.files.imagenet.data.toString();
-  const resultpath = 'tmp/imagenet_result.json';
-  fs.promises.mkdir('tmp', {recursive:true})
-  .then(res => {
-    fs.promises.writeFile(resultpath, result);
-  })
-  .then(res => {
-    console.log(`Imagenet result is stored in ${resultpath}`);
-    const eval = execSync(`python ./eval.py -p ../${resultpath}`, { cwd: './eval' });
-    print(eval);
-    res.status(200).send();
+  const result = req.files.coco.data.toString();
+  const resultpath = '/tmp/coco_result.json';
+  fs.promises.writeFile(resultpath, result)
+  .then(_ => {
+    console.log(`Coco result is stored in ${resultpath}`);
+    const eval = execSync(`python3 ../setup.py && python3 ./eval.py -p ${resultpath}`, { cwd: './eval/coco' }).toString();
+    console.log(eval);
+    res.status(200).send(eval);
   })
   .catch(err => {
     console.error(err);
     res.status(500).send();
   });
-});
-
-app.post('/upload/coco', (req, res) => {
-
 });
 
 // catch 404 and forward to error handler
