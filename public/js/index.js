@@ -1,46 +1,34 @@
-(function() {
-    const imgform = document.getElementById('imagenet-form');
-    const cocoform = document.getElementById('coco-form');
-    // imgform.onsubmit = (e) => {
-    //     e.preventDefault();
-    //     var formData = new FormData();
-    //     var file = document.getElementById('imagenet-file').files[0];
-    //     console.log(file)
-    //     formData.append('file', file);
-    //     console.log(formData);
-    //     // var xhr = new XMLHttpRequest();
-    //     // xhr.open('POST', '/upload/imagenet')
-    //     // $.ajax({
-    //     //     url: '/upload/imagenet',
-    //     //     type: 'POST',
-    //     //     data: formData,
-    //     //     cache: false,
-    //     //     processData: false,
-    //     //     contentType: false,
-    //     //     success: res => {
-    //     //         console.log(res);
-    //     //     },
-    //     //     error: err => {
-    //     //         console.error(err);
-    //     //     }
-    //     // });
-    // }
+const generateUploadOnclick = (type) => {
+    return (e) => {
+        e.preventDefault();
+        var file = $(`#${type}-file`)[0].files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        console.log(file);
+        $.ajax({
+            url: `/upload/${type}`,
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: (res) => {
+                console.log(res);
+                $('#result-modal-body').html(`<b>${res.eval.split('\n').join('<br>')}</b>`);
+                $('#result-modal').modal('show');
+            },
+            error: (err) => console.error(err)
+        });
+    }
+}
 
-    $('#imagenet-btn').on('click', () => {
-       var file = $('#imagenet-file')[0].files[0];
-       var formData = new FormData();
-       formData.append('file', file);
-       console.log(file);
-       $.ajax({
-           url: '/upload/imagenet',
-           type: 'post',
-           data: formData,
-           contentType: false,
-           processData: false,
-           success: (res) => {
-               console.log(res);
-           },
-           error: (err) => console.log(err)
-       })
+(function() {
+    $('#imagenet-btn').on('click', generateUploadOnclick('imagenet'));
+    $('#coco-btn').on('click', generateUploadOnclick('coco'));
+    
+    $('#imagenet-file').on('change', (e) => {
+        $('#imagenet-file-label').text($('#imagenet-file')[0].files[0].name);
     });
- })();
+    $('#coco-file').on('change', (e) => {
+        $('#coco-file-label').text($('#coco-file')[0].files[0].name);
+    });
+})();
