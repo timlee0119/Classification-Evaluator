@@ -9,7 +9,7 @@
     <title>Evaluation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet"  href="stylesheets/grid.css"> -->
+    <link rel="icon" type="image/ico" href="img/icon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Calistoga&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="stylesheets/style.css">
@@ -18,44 +18,40 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="container-fluid h-100">
+    <div class="container-fluid h-100" id="page-content">
       <div class="row h-100 justify-content-center align-items-center">
         <div class="col-4 d-flex flex-column align-items-center">
 
           <h4 class="text-center">Upload your JSON result for Inception V4 with Imagenet.</h4>
 
-          <form class="input-group my-3" id="imagenet-form" enctype="multipart/form-data" method="post">
+          <form class="input-group my-3 w-75" id="imagenet-form" enctype="multipart/form-data" method="post">
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="imagenet-file">
               <label class="custom-file-label" id="imagenet-file-label" for="imagenet-file">Choose file</label>
             </div>
           </form>
-          <button class="btn btn-primary upload-btn" id="imagenet-btn">
-            Upload
+          <button class="btn btn-primary upload-btn d-flex justify-content-around align-items-center" id="imagenet-btn">
+            <span class="btn-loading" id="imagenet-loading"></span>
+            <span>Upload</span>
           </button>
 
-          <!-- <form encType="multipart/form-data" method="post" id="imagenet-form">       
-            <input type="file" name="imagenet" id="imagenet-file"><br>   
-            <input type="button" id="imagenet-btn" value="Upload Imagenet Classification Result">
-          </form> -->
         </div>
         <div class="col-1"></div>
         <div class="col-4 d-flex flex-column align-items-center">
 
           <h4 class="text-center">Upload your JSON result for MobileNet SSD with COCO.</h4>
 
-          <form class="input-group my-3" id="coco-form" enctype="multipart/form-data" method="post">
+          <form class="input-group my-3 w-75" id="coco-form" enctype="multipart/form-data" method="post">
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="coco-file">
               <label class="custom-file-label" id="coco-file-label" for="coco-file">Choose file</label>
             </div>
           </form>
-          <button class="btn btn-primary upload-btn" id="coco-btn">Upload</button>
-        
-          <!-- <form encType="multipart/form-data" method="post" id="coco-form">
-            <input type="file" name="coco" id="coco-file"><br>
-            <input type="submit" id="coco-btn" value="Upload COCO Object Detection Result">
-          </form>         -->
+          <button class="btn btn-primary upload-btn d-flex justify-content-around align-items-center" id="coco-btn">
+            <span class="btn-loading" id="coco-loading"></span>
+            <span>Upload</span>
+          </button>
+
         </div>
       </div>
     </div>
@@ -80,6 +76,10 @@
         </div>
       </div>
     </div>
+
+    <footer>
+      <img src="img/microsoft.png" class="h-100">
+    </footer>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
