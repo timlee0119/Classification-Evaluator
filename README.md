@@ -34,7 +34,7 @@ The webpage would be started on localhost:3000.
 
 ## Docker
 For web evaluation: 
-1. image:tag: docker pull ff936tw/evaluator:v2
+1. image: docker pull ff936tw/evaluator:v2
 2. run
 ```
 sudo docker run -it --rm -p 3000:3000 ff936tw/evaluator:v2
