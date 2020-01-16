@@ -40,3 +40,6 @@ For web evaluation:
 sudo docker run -it --rm -p 3000:3000 ff936tw/evaluator:v2
 ```
 3. open localhost:3000 on browser
+
+## Web app
+[Click here](https://nodedockerapp-eval.azurewebsites.net)
