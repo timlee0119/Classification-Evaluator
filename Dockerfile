@@ -26,4 +26,4 @@ RUN npm install \
     && cd eval/coco/ \
     && make
     
-
+CMD ["npm","start"]
