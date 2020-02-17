@@ -9,7 +9,8 @@ RUN apt-get update \
   && cd /usr/local/bin \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip \
-  && pip install numpy
+  && pip install numpy \
+  && pip install cython
 
 RUN apt-get install -y \
     nodejs \
@@ -25,4 +26,4 @@ RUN npm install \
     && cd eval/coco/ \
     && make
     
-
+CMD ["npm","start"]
